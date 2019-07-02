@@ -1,6 +1,4 @@
-﻿using CsvHelper;
-using CsvHelper.Configuration;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,34 +11,15 @@ namespace deadrat22
     {
         public List<Journey> Journeys { get; private set; }
 
-        public void LoadJourneysRetarded(string fileName)
+        private CsvReader<Journey> _reader;
+
+        public void LoadJourneys(string filename)
         {
-            if (Journeys == null)
-                Journeys = new List<Journey>();
-
-            using (var reader = new StreamReader(fileName))
+            using (var streamReader = new StreamReader(filename))
             {
-                var header = reader.ReadLine();
-                while (!reader.EndOfStream)
-                {
-                    var line = reader.ReadLine().Split(';');
-
-                    var priceString = Regex.Match(line[8], @"(\d+\.\d\d).*").Groups[1].Value;
-
-                    var journey = new Journey
-                    {
-                        ID = int.Parse(line[0]),
-                        Vehicle = line[1],
-                        StartAddress = line[2],
-                        StartTime = DateTime.Parse(line[3]),
-                        EndAddress = line[4],
-                        EndTime = DateTime.Parse(line[5]),
-                        Distance = int.Parse(line[6]),
-                        Duration = line[7],
-                        Price = double.Parse(priceString)
-                    };
-                    Journeys.Add(journey);
-                }
+                _reader = new CsvReader<Journey>(streamReader, ";");
+                Journeys = _reader.ReadAll()
+                    .ToList();
             }
         }
 

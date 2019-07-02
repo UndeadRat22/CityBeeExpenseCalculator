@@ -6,22 +6,23 @@ namespace deadrat22
 {
     public class Program
     {
-        public static string fn = @"C:\Users\Valdas\Desktop\report.txt";
+        public static string OutputFn = @"C:\Users\Valdas\Desktop\report.txt";
+        public static string InputFn = @"C:\Users\Valdas\Desktop\trips.csv";
         public static void Main(string[] args)
         {
-            using (var reader = new StreamReader(fn))
+            /*using (var reader = new StreamReader(InputFn))
             {
                 CsvReader<Journey> csvReader = new CsvReader<Journey>(reader, ";");
                 Journey result = csvReader.Read();
                 Console.WriteLine();
-            }
-               /*var calc = new CityBeeCalculator();
+            }*/
+            var calc = new CityBeeCalculator();
 
             calc.LoadJourneysRetarded(@"C:\Users\Valdas\Desktop\trips.csv");
 
             var report = calc.GenerateReport();
 
-            using (var writer = new StreamWriter(@"C:\Users\Valdas\Desktop\report.txt"))
+            using (var writer = new StreamWriter(@"C:\Users\Valdas\Desktop\report1.txt"))
             {
                 foreach (var monthly in report.MonthlyReports.Reverse())
                 {
@@ -30,7 +31,25 @@ namespace deadrat22
                 writer.WriteLine($"Min: {report.MinPrice}");
                 writer.WriteLine($"Max: {report.MaxPrice}");
                 writer.WriteLine($"Avg: {report.AvgPrice}");
-            }*/
+            }
+
+
+            var calc2 = new CityBeeCalculator();
+
+            calc2.LoadJourneys(@"C:\Users\Valdas\Desktop\trips.csv");
+
+            var report2 = calc2.GenerateReport();
+
+            using (var writer = new StreamWriter(@"C:\Users\Valdas\Desktop\report2.txt"))
+            {
+                foreach (var monthly in report2.MonthlyReports.Reverse())
+                {
+                    writer.WriteLine($@"mo{monthly.month.Month.ToString()}: {monthly.TotalPrice.ToString()}");
+                }
+                writer.WriteLine($"Min: {report.MinPrice}");
+                writer.WriteLine($"Max: {report.MaxPrice}");
+                writer.WriteLine($"Avg: {report.AvgPrice}");
+            }
         }
     }
 }
