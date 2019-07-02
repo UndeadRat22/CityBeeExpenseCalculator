@@ -10,39 +10,16 @@ namespace deadrat22
         public static string InputFn = @"C:\Users\Valdas\Desktop\trips.csv";
         public static void Main(string[] args)
         {
-            /*using (var reader = new StreamReader(InputFn))
-            {
-                CsvReader<Journey> csvReader = new CsvReader<Journey>(reader, ";");
-                Journey result = csvReader.Read();
-                Console.WriteLine();
-            }*/
+
             var calc = new CityBeeCalculator();
 
-            calc.LoadJourneysRetarded(@"C:\Users\Valdas\Desktop\trips.csv");
+            calc.LoadJourneys(@"C:\Users\Valdas\Desktop\trips.csv");
 
             var report = calc.GenerateReport();
 
-            using (var writer = new StreamWriter(@"C:\Users\Valdas\Desktop\report1.txt"))
-            {
-                foreach (var monthly in report.MonthlyReports.Reverse())
-                {
-                    writer.WriteLine($@"mo{monthly.month.Month.ToString()}: {monthly.TotalPrice.ToString()}");
-                }
-                writer.WriteLine($"Min: {report.MinPrice}");
-                writer.WriteLine($"Max: {report.MaxPrice}");
-                writer.WriteLine($"Avg: {report.AvgPrice}");
-            }
-
-
-            var calc2 = new CityBeeCalculator();
-
-            calc2.LoadJourneys(@"C:\Users\Valdas\Desktop\trips.csv");
-
-            var report2 = calc2.GenerateReport();
-
             using (var writer = new StreamWriter(@"C:\Users\Valdas\Desktop\report2.txt"))
             {
-                foreach (var monthly in report2.MonthlyReports.Reverse())
+                foreach (var monthly in report.MonthlyReports.Reverse())
                 {
                     writer.WriteLine($@"mo{monthly.month.Month.ToString()}: {monthly.TotalPrice.ToString()}");
                 }
