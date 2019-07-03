@@ -21,11 +21,11 @@ namespace deadrat22
             {
                 foreach (var monthly in report.MonthlyReports.Reverse())
                 {
-                    writer.WriteLine($@"mo{monthly.month.Month.ToString()}: {monthly.TotalPrice.ToString()}");
+                    Console.WriteLine($@"mo{monthly.month.Month.ToString()}: {monthly.TotalPrice.ToString()}");
                 }
-                writer.WriteLine($"Min: {report.MinPrice}");
-                writer.WriteLine($"Max: {report.MaxPrice}");
-                writer.WriteLine($"Avg: {report.AvgPrice}");
+                Console.WriteLine($"Min: {report.MinPrice}");
+                Console.WriteLine($"Max: {report.MaxPrice}");
+                Console.WriteLine($"Avg: {report.AvgPrice}");
             }
         }
     }
