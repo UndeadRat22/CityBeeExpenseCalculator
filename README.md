@@ -1,1 +1,1 @@
-# citybee-expense-calculator
+# Citybee Expense Calculator
